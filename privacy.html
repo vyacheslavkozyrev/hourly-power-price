@@ -16,7 +16,8 @@ code{font-size:.95em}
 <nav><a href="index.html">Home</a> <a href="privacy.html">Privacy</a> <a href="support.html">Support</a></nav>
 <main>
 <h1>Privacy Policy</h1>
-<p>Effective date: 2026-11-03<br>
+<p>Effective date: 2026-11-06<br>
+Last updated: 2026-11-07<br>
 Contact: <a href="mailto:vyacheslav.kozyrev@gmail.com">vyacheslav.kozyrev@gmail.com</a></p>
 <p>Hourly Power Price is an independent app. It is not affiliated with or endorsed by ComEd.</p>
 <p>This policy covers the iPhone app, its widgets and the Apple Watch app.</p>
@@ -29,12 +30,34 @@ Contact: <a href="mailto:vyacheslav.kozyrev@gmail.com">vyacheslav.kozyrev@gmail.
 </ul>
 <h2>Premium purchase</h2>
 <p>The one-time Premium unlock is handled by Apple through StoreKit. The app does not see your payment details; it only checks on the device whether Apple reports the purchase. That exchange is between you and Apple and is governed by Apple's privacy policy.</p>
+<h2>Push alerts: what is stored on the server</h2>
+<p>If you turn on a low or high price alert in the Premium Alerts screen, the app registers with a small server run by the developer, so the server can send the alert as a push notification even when the app is closed. Without a low or high alert, the app does not contact this server, except to delete your record after you turn the alerts off. While an alert is on, the app contacts the server when you change an alert, when it opens (at most about every 12 hours) and, after a failed call, again a few minutes later. The server runs on Microsoft Azure (Azure Functions and Azure Table Storage) in a Microsoft Azure region chosen by the developer (Central US, in the United States), under the developer's own Azure subscription.</p>
+<p>For each phone with alerts on, the server stores only:</p>
+<ul>
+<li>a random install ID that the server made for this installation, and a hash of the secret that goes with it (the secret itself stays in your iPhone Keychain);</li>
+<li>the push token (Device ID) that Apple gives the app, and whether it is for Apple's test or production push service;</li>
+<li>your low and high alert levels and whether each alert is on, and the state of each alert (whether it is ready to fire again);</li>
+<li>the times of the last alerts sent, and the time the app last contacted the server;</li>
+<li>the webhook address, only if you entered one (see below).</li>
+</ul>
+<p>The server records do not contain tomorrow's price alert settings, any price history, your name, email, account, location or IP address. It has no accounts. The address a request comes from is used only for a moment, in memory, to limit abuse, and is not saved in the records.</p>
+<p>The server reads ComEd's public price feed every few minutes, compares the price with the levels of every registered phone, and sends the push notification through Apple's push notification service (APNs). Apple handles the delivery under its own privacy policy.</p>
+<h2>Optional webhook</h2>
+<p>In the Alerts screen you can enter a webhook address (an HTTPS address of your own, for example for a home automation). On your device it is kept in the iOS Keychain; on the server it is stored with your registration until you remove it. When a price alert fires, the server sends one short request to that address and nowhere else; it does not retry. The address can contain an access token, so treat it like a password. The app and the server do not log it.</p>
+<h2>When the data is deleted</h2>
+<ul>
+<li>Turn the low and high alerts off in the app: the app asks the server to delete the record as soon as it can reach the server.</li>
+<li>Remove the webhook address in the app: it is removed from the server.</li>
+<li>If Apple reports that the push token is no longer valid (for example after you delete the app), the record is deleted.</li>
+<li>If the app is not opened for 90 days, the record is deleted. The app contacts the server each time it opens, so an active phone is not affected.</li>
+</ul>
+<p>To delete your data yourself, turn the alerts off in the app. You can also write to the contact address above and ask for it to be removed.</p>
 <h2>What is sent anywhere else</h2>
-<p>Nothing. The app sends no data of its own to the developer or to any third party; the only network requests it makes are the price requests to ComEd described above (the Premium purchase is between you and Apple). It has no accounts, no analytics, no advertising and no tracking, and it uses no third-party SDKs. Its privacy manifests declare no collected data and no tracking.</p>
+<p>Nothing else. The app sends no data to any third party other than Apple (the Premium purchase, and push delivery as described above), ComEd (the price requests), Microsoft (which hosts the server as described above) and the webhook address you chose yourself. It has no accounts, no analytics, no advertising and no tracking, we do not sell data, and it uses no third-party SDKs. Your data is not linked to your identity and is not used to track you.</p>
 <h2>Notifications</h2>
-<p>Price alerts are local notifications created on your device. No push server is involved and no notification token is collected.</p>
+<p>The low and high price alerts are push notifications as described above. They need your permission for notifications. The tomorrow's-prices alert is a local notification created on your device. If the server cannot be reached, the app falls back to local notifications on your device, which are best effort.</p>
 <h2>Children</h2>
-<p>The app collects no data from anyone, including children.</p>
+<p>The app has no accounts and asks for no personal information, from children or anyone else. The server data described above is a push token, alert levels and an optional webhook address, nothing that identifies a person.</p>
 <h2>Changes</h2>
 <p>If this policy changes, the effective date above changes with it.</p>
 </main>

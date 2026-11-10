@@ -22,10 +22,24 @@ code{font-size:.95em}
 <h2>FAQ</h2>
 <h3>Why is the number in my widget a few minutes old?</h3>
 <p>Widgets refresh on a schedule that iOS controls, so the number may be a few minutes old. A 5-minute price older than 15 minutes is dimmed, and a failed update shows a dash.</p>
+<h3>How do the price alerts work?</h3>
+<p>Premium has three alerts, each with its own switch: a low price alert, a high price alert and a daily note with tomorrow's lowest and highest hour. The low and high alerts are push notifications. A small server checks ComEd's price every 5 minutes and sends the alert through Apple, so it arrives even when the app is closed or force-quit. A push can take up to about 5 minutes after the price crosses your level. The tomorrow note is created on your phone.</p>
+<h3>Why did I get only one alert when the price kept moving around my level?</h3>
+<p>On purpose. After an alert fires, the price must move half a cent (0.5 cents) back past your level before the same alert can fire again, and the same alert is sent at most once an hour.</p>
 <h3>Why can an alert arrive late or be missed?</h3>
-<p>Alerts are local and best effort. iOS decides when the app can check the price, so a notification can arrive late or be missed.</p>
+<p>If the server cannot be reached, the app falls back to local alerts on your phone and the Alerts screen says "Local only". Local alerts are best effort: iOS decides when the app can check the price, so a notification can arrive late or be missed. When the server can be reached again, the app goes back to push by itself (open the app, or wait a few minutes).</p>
+<h3>I do not get alert notifications. What should I check?</h3>
+<p>Open the Alerts screen: it should say "Push active". Then check Settings &gt; Notifications &gt; Hourly Power Price (notifications on, banners allowed), that no Focus mode is silencing them, and that your level is on the right side of the current price. If the status says "Local only", the reason is shown under it. Turning the alerts off and on again registers the phone from scratch.</p>
+<h3>What is the webhook address?</h3>
+<p>An optional HTTPS address of your own in the Alerts screen. When a low or high alert fires, the server sends one short request to it, once, so a service such as IFTTT, Home Assistant or Pushcut can start a smart-home action or a Shortcut. The request is JSON with <code>kind</code> (low or high), <code>priceCents</code>, <code>thresholdCents</code> and <code>time</code>. The address can contain an access token, so treat it like a password. Tap Remove to delete it.</p>
+<h3>What does the app store about me for push alerts?</h3>
+<p>Only while a low or high alert is on: the push token, your alert levels, the alert state and the optional webhook address. Turn the alerts off and the app has the server delete them. Details are in the <a href="privacy.html">Privacy Policy</a>.</p>
+<h3>What do the yesterday labels and the month strip on the Dashboard mean?</h3>
+<p>Under the Instant and 5-Minute prices a small line says how the price compares with the same moment yesterday. The strip below says where the current price stands among this month's hours. Both are free.</p>
+<h3>Can I use the price in Shortcuts or with Siri?</h3>
+<p>Yes, with Premium. Shortcuts has actions to get the current price, check whether it is below or above a level, and find the cheapest hours tomorrow. You can also ask Siri.</p>
 <h3>What does Premium unlock?</h3>
-<p>Month statistics, the month price distribution, tomorrow's hourly prices, price history and price alerts. Premium is a single one-time purchase of US$3.99. There is no subscription and nothing renews.</p>
+<p>Month statistics, the month price distribution, tomorrow's hourly prices with the cheapest window of 1 to 6 hours, price history, price alerts with the optional webhook, and the Shortcuts and Siri actions. Premium is a single one-time purchase of US$3.99. There is no subscription and nothing renews.</p>
 <h3>How do I restore my purchase?</h3>
 <p>Open any Premium screen in the app (for example History) and choose Restore Purchases on the locked screen. Apple restores Premium for the same Apple ID that bought it.</p>
 <h3>Do I need an account?</h3>
